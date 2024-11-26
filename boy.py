@@ -287,6 +287,7 @@ class Boy:
         # modify here
         self.x = server.background.w / 2
         self.y = server.background.h / 2
+        self.ball_count = 0
 
     def update(self):
         # modify here
@@ -323,9 +324,17 @@ class Boy:
             f"({self.x:5.5}, {self.y:5.5})",
             (255, 255, 0),
         )
+        draw_rectangle(*self.get_bb())
+        self.font.draw(sx - 10, sy + 60, f"{self.ball_count}", (0, 0, 255))
 
     def get_bb(self):
-        return self.x - 20, self.y - 50, self.x + 20, self.y + 50
+        return (
+            self.x - server.background.window_left - 20,
+            self.y - server.background.window_bottom - 50,
+            self.x - server.background.window_left + 20,
+            self.y - server.background.window_bottom + 50,
+        )
 
     def handle_collision(self, group, other):
-        pass
+        if group == "server.boy:ball":
+            self.ball_count += 1
