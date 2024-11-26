@@ -6,13 +6,12 @@ from pico2d import *
 import game_framework
 import game_world
 
+from ball import Ball
 import server
 from boy import Boy
 
 # fill here
-from background import TileBackground as Background
-
-
+from background import FixedBackground as Background
 
 
 def handle_events():
@@ -26,12 +25,14 @@ def handle_events():
             server.boy.handle_event(event)
 
 
-
 def init():
     server.background = Background()
     game_world.add_object(server.background, 0)
     server.boy = Boy()
     game_world.add_object(server.boy, 1)
+    balls = [Ball() for _ in range(100)]
+    game_world.add_objects(balls)
+
 
 def finish():
     game_world.clear()
@@ -42,16 +43,16 @@ def update():
     game_world.update()
     game_world.handle_collisions()
 
+
 def draw():
     clear_canvas()
     game_world.render()
     update_canvas()
 
+
 def pause():
     pass
 
+
 def resume():
     pass
-
-
-

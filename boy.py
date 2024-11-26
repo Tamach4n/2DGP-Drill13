@@ -303,9 +303,9 @@ class Boy:
             server.background.w - 50.0,
         )
         self.y = clamp(
-            100.0,
+            50.0,
             self.y,
-            server.background.h - 100.0,
+            server.background.h - 50.0,
         )
 
     def handle_event(self, event):
@@ -314,6 +314,8 @@ class Boy:
     def draw(self):
         sx = self.x - server.background.window_left
         sy = self.y - server.background.window_bottom
+        # sx = get_canvas_width() / 2
+        # sy = get_canvas_height() / 2
         self.image.clip_draw(int(self.frame) * 100, self.action * 100, 100, 100, sx, sy)
         self.font.draw(
             int(sx - 100),
